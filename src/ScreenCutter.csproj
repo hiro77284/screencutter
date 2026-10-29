@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <AssemblyName>ScreenCutter</AssemblyName>
+    <RootNamespace>ScreenCutter</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>ScreenCutter</Product>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <!-- UseWindowsForms の代わりに FrameworkReference を直接指定（Windows 以外の環境でもビルドできるように） -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+    <Using Include="System.Drawing" />
+    <Using Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" LogicalName="ScreenCutter.app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.9" />
+  </ItemGroup>
+
+</Project>

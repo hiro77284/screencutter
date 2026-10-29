@@ -1,0 +1,13 @@
+# Build output
+bin/
+obj/
+dist/
+publish/
+*.exe
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+.idea/
