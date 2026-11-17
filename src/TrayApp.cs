@@ -109,7 +109,8 @@ public sealed class TrayApp : ApplicationContext
             string name;
             OutputFormat format;
             int quality;
-            using (var overlay = new CaptureOverlay(_settings.Presets, _settings.ActivePresetIndex, _settings.Format, _settings.Quality))
+            CaptureMode mode;
+            using (var overlay = new CaptureOverlay(_settings.Presets, _settings.ActivePresetIndex, _settings.Format, _settings.Quality, _settings.LastMode))
             {
                 overlay.ShowDialog();
                 captured = overlay.Result;
@@ -117,14 +118,17 @@ public sealed class TrayApp : ApplicationContext
                 name = overlay.ResultName;
                 format = overlay.Format;
                 quality = overlay.Quality;
+                mode = overlay.Mode;
             }
 
-            // キャプチャ中に変えたサイズや保存形式は、次回以降もそのまま使う
-            if (presetIndex != _settings.ActivePresetIndex || format != _settings.Format || quality != _settings.Quality)
+            // キャプチャ中に変えたサイズ・保存形式・モードは、次回以降もそのまま使う
+            if (presetIndex != _settings.ActivePresetIndex || format != _settings.Format || quality != _settings.Quality
+                || mode != _settings.LastMode)
             {
                 _settings.ActivePresetIndex = presetIndex;
                 _settings.Format = format;
                 _settings.Quality = quality;
+                _settings.LastMode = mode;
                 SaveSettings();
                 RefreshMenu();
             }

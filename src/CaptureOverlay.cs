@@ -42,7 +42,10 @@ public sealed class CaptureOverlay : Form
     private readonly Pen _crosshairPen = new(Color.FromArgb(200, 255, 60, 60), 1);
     private readonly HashSet<Keys> _heldAtStart = new();
 
-    private CaptureMode _mode = CaptureMode.Fixed;
+    private CaptureMode _mode;
+
+    /// <summary>今のモード。閉じたあと TrayApp が次回の開始モードとして保存する。</summary>
+    public CaptureMode Mode => _mode;
     private int _scaleWidth = ScaleInitial;
     private int _scaleHeight = ScaleInitial;
     // 自由サイズモードでドラッグを始めた位置（ドラッグしていなければ null）
@@ -71,8 +74,9 @@ public sealed class CaptureOverlay : Form
         _ => _presets[PresetIndex].Name,
     };
 
-    public CaptureOverlay(IReadOnlyList<SizePreset> presets, int presetIndex, OutputFormat format, int quality)
+    public CaptureOverlay(IReadOnlyList<SizePreset> presets, int presetIndex, OutputFormat format, int quality, CaptureMode mode)
     {
+        _mode = Enum.IsDefined(mode) ? mode : CaptureMode.Fixed;
         _presets = presets;
         Format = format;
         Quality = quality;

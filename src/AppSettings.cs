@@ -48,6 +48,9 @@ public sealed class AppSettings
     public OutputFormat Format { get; set; } = OutputFormat.Png;
     public int Quality { get; set; } = 90;
 
+    // 前回キャプチャ画面で使っていたモード。次にホットキーを押したときはこのモードで始まる
+    public CaptureMode LastMode { get; set; } = CaptureMode.Fixed;
+
     public bool CopyToClipboard { get; set; }
     public bool ShowNotification { get; set; } = true;
 
